@@ -47,7 +47,12 @@ module Terraforming
       end
 
       def db_parameters_in(parameter_group)
-        @client.describe_db_parameters(db_parameter_group_name: parameter_group.db_parameter_group_name).map(&:parameters).flatten
+        begin
+          @client.describe_db_parameters(db_parameter_group_name: parameter_group.db_parameter_group_name).map(&:parameters).flatten
+        rescue => exception
+          sleep(0.5)
+          db_parameters_in(parameter_group)
+        end  
       end
 
       def module_name_of(parameter_group)
