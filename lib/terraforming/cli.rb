@@ -225,6 +225,11 @@ module Terraforming
       execute(Terraforming::Resource::SNSTopicSubscription, options)
     end
 
+    desc "ecrg", "ElasticCache Replication Group"
+    def ecrg
+      execute(Terraforming::Resource::Ecrg, options)
+    end
+
     private
 
     def configure_aws(options)
