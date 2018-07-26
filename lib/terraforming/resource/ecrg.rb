@@ -57,18 +57,6 @@ module Terraforming
         @client.describe_replication_groups().map(&:replication_groups).flatten
       end
 
-      # def cluster_in_vpc?(replication_group)
-      #   replication_group.cache_security_groups.empty?
-      # end
-
-      # def security_group_ids_of(replication_group)
-      #   replication_group.security_groups.map { |sg| sg.security_group_id }
-      # end
-
-      # def security_group_names_of(replication_group)
-      #   replication_group.cache_security_groups.map { |sg| sg.cache_security_group_name }
-      # end
-
       def module_name_of(replication_group)
         normalize_module_name(replication_group.replication_group_id)
       end
