@@ -343,6 +343,13 @@ module Terraforming
 
         it_behaves_like "CLI examples"
       end
+
+      describe "ecrg" do
+        let(:klass)   { Terraforming::Resource::Ecrg }
+        let(:command) { :ecrg }
+
+        it_behaves_like "CLI examples"
+      end
     end
 
     context "flush to stdout" do
