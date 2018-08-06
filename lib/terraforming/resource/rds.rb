@@ -31,6 +31,7 @@ module Terraforming
             "endpoint" => instance.endpoint.address,
             "engine" => instance.engine,
             "engine_version" => instance.engine_version,
+            "iops" => instance.iops,
             "final_snapshot_identifier" => "#{instance.db_instance_identifier}-final",
             "id" => instance.db_instance_identifier,
             "identifier" => instance.db_instance_identifier,
