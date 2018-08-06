@@ -230,6 +230,11 @@ module Terraforming
       execute(Terraforming::Resource::Ecrg, options)
     end
 
+    desc "dynamodb", "DynamoDB"
+    def dynamodb
+      execute(Terraforming::Resource::DynamoDB, options)
+    end
+
     private
 
     def configure_aws(options)
