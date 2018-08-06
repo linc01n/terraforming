@@ -5,6 +5,7 @@ resource "aws_db_instance" "<%= instance.db_instance_identifier %>" {
     storage_type              = "<%= instance.storage_type %>"
     engine                    = "<%= instance.engine %>"
     engine_version            = "<%= instance.engine_version %>"
+    iops                      = "<%= instance.iops %>"
     instance_class            = "<%= instance.db_instance_class %>"
     name                      = "<%= instance.db_name %>"
     username                  = "<%= instance.master_username %>"
