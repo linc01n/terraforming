@@ -350,6 +350,13 @@ module Terraforming
 
         it_behaves_like "CLI examples"
       end
+
+      describe "dynamodb" do
+        let(:klass)   { Terraforming::Resource::Dynamodb }
+        let(:command) { :dynamodb }
+
+        it_behaves_like "CLI examples"
+      end
     end
 
     context "flush to stdout" do
