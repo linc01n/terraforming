@@ -235,6 +235,12 @@ module Terraforming
       execute(Terraforming::Resource::DynamoDB, options)
     end
 
+    # Subcommand name should be acronym.
+    desc "ecpg", "Ecpg"
+    def ecpg
+      execute(Terraforming::Resource::Ecpg, options)
+    end
+
     private
 
     def configure_aws(options)

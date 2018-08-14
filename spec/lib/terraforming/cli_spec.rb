@@ -357,6 +357,14 @@ module Terraforming
 
         it_behaves_like "CLI examples"
       end
+
+      describe "ecpg" do
+        let(:klass)   { Terraforming::Resource::Ecpg }
+        let(:command) { :ecpg }
+
+        it_behaves_like "CLI examples"
+      end
+
     end
 
     context "flush to stdout" do
