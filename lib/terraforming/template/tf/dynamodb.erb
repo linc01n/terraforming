@@ -7,14 +7,56 @@
     <% if key_schema.key_type ==  "HASH" %>
     hash_key = "<%= key_schema.attribute_name %>"
     <% end -%>
+    <% if key_schema.key_type ==  "RANGE" %>
+    range_key = "<%= key_schema.attribute_name %>"
+    <% end -%>
   <% end -%>
 
   <% table.table.attribute_definitions.each do |attribute| -%>
     attribute {
-      "name" = "<%= attribute.attribute_name %>"
-      "type" = "<%= attribute.attribute_type %>"
+      name = "<%= attribute.attribute_name %>"
+      type = "<%= attribute.attribute_type %>"
     }
-
-<% end -%>
+  <% end -%>
+  <%- unless (table.table.global_secondary_indexes).nil? -%>
+    <% table.table.global_secondary_indexes.each do |index| -%>
+      global_secondary_index {
+        name                = "<%= index.index_name %>"
+        read_capacity       = "<%= index.provisioned_throughput.read_capacity_units %>"
+        write_capacity      = "<%= index.provisioned_throughput.write_capacity_units %>"
+        projection_type     = "<%= index.projection.projection_type %>"
+        <% unless (index.projection.non_key_attributes).nil? %>
+        non_key_attributes  = <%= index.projection.non_key_attributes %>
+        <% end -%>
+        <% index.key_schema.each do |key_schema| -%>
+          <% if key_schema.key_type ==  "HASH" %>
+        hash_key = "<%= key_schema.attribute_name %>"
+          <% end -%>
+          <% if key_schema.key_type ==  "RANGE" %>
+        range_key = "<%= key_schema.attribute_name %>"
+          <% end -%>
+        <% end -%>
+      }
+    <% end -%>
+  <% end -%>
+  <%- unless (table.table.local_secondary_indexes).nil? -%>
+    <% table.table.local_secondary_indexes.each do |index| -%>
+      local_secondary_index {
+      name                = "<%= index.index_name %>"
+      projection_type     = "<%= index.projection.projection_type %>"
+      <% unless (index.projection.non_key_attributes).nil? %>
+        non_key_attributes  = <%= index.projection.non_key_attributes %>
+      <% end -%>
+      <% index.key_schema.each do |key_schema| -%>
+        <% if key_schema.key_type ==  "HASH" %>
+          hash_key = "<%= key_schema.attribute_name %>"
+        <% end -%>
+        <% if key_schema.key_type ==  "RANGE" %>
+          range_key = "<%= key_schema.attribute_name %>"
+        <% end -%>
+      <% end -%>
+      }
+    <% end -%>
+  <% end -%>
   }
 <% end -%>
