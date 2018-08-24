@@ -1,0 +1,39 @@
+<% auto_scaling_groups.each do |group| -%>
+<%- policies = auto_scaling_group_policies(group) -%>
+<%- unless (policies).nil? -%>
+<% policies.each do |policy| -%>
+  resource "aws_autoscaling_policy" "<%= module_name_of(policy) %>" {
+    name                              = "<%= policy.policy_name %>"
+    policy_type                       = "<%= policy.policy_type %>"
+    autoscaling_group_name            = "<%= policy.auto_scaling_group_name %>"
+    adjustment_type                   = "<%= policy.adjustment_type %>"
+    <% if (policy.estimated_instance_warmup) %>
+    estimated_instance_warmup         = <%= policy.estimated_instance_warmup %>
+    <% end -%>
+
+    <% if policy.policy_type ==  "SimpleScaling" %>
+    <% if (policy.cooldown) %>
+    cooldown                          = <%= policy.cooldown %>
+    <% end -%>
+    scaling_adjustment                = <%= policy.scaling_adjustment %>
+    <% end -%>
+    <% if policy.policy_type ==  "StepScaling" %>
+    metric_aggregation_type           = "<%= policy.metric_aggregation_type %>"
+      <% policy.step_adjustments.each do |adj| -%>
+    step_adjustment {
+      scaling_adjustment              = <%= adj.scaling_adjustment %>
+      metric_interval_lower_bound     = <%= adj.metric_interval_lower_bound %>
+      metric_interval_upper_bound     = <%= adj.metric_interval_upper_bound %>
+    }
+      <% end -%>
+    <% end -%>
+
+    alarm  = [
+    <% policy.alarms.each do |alarm| -%>
+        "<%= alarm.alarm_name %>",
+    <% end -%>
+    ]
+  }
+<% end -%>
+<% end -%>
+<% end -%>
