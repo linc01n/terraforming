@@ -365,6 +365,13 @@ module Terraforming
         it_behaves_like "CLI examples"
       end
 
+      describe "asgp" do
+        let(:klass)   { Terraforming::Resource::AutoScalingGroupPolicy }
+        let(:command) { :AutoScalingGroupPolicy }
+
+        it_behaves_like "CLI examples"
+      end
+
     end
 
     context "flush to stdout" do

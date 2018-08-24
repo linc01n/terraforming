@@ -241,6 +241,11 @@ module Terraforming
       execute(Terraforming::Resource::Ecpg, options)
     end
 
+    desc "asgp", "Autoscalinggrouppolicy"
+    def asgp
+      execute(Terraforming::Resource::AutoScalingGroupPolicy, options)
+    end
+
     private
 
     def configure_aws(options)
