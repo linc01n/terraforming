@@ -39,6 +39,7 @@ module Terraforming
           parameters["cache_node_type_specific_parameters"] = resp.cache_node_type_specific_parameters
           parameters["cache_parameter_group"] = group.cache_parameter_group_name
           parameters["cache_parameter_group_family"] = group.cache_parameter_group_family
+          parameters["description"] = group.description
           parameters
         end
       end
